@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio de Seguridad de la Información</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .font-courier {
+            font-family: 'Courier Prime', monospace;
+        }
+        .glitch {
+            position: relative;
+            animation: glitch 1.5s linear infinite;
+        }
+        @keyframes glitch {
+            2%,64% { transform: translate(2px,0) skew(0deg); }
+            4%,60% { transform: translate(-2px,0) skew(0deg); }
+            62% { transform: translate(0,0) skew(5deg); }
+        }
+        .glitch:before,
+        .glitch:after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch:before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .glitch:after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+            clip: rect(85px, 450px, 90px, 0);
+            animation: glitch-anim-2 5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            10% { clip: rect(40px, 9999px, 45px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(2px, 9999px, 98px, 0); }
+            10% { clip: rect(33px, 9999px, 72px, 0); }
+        }
+        #icon-container > svg {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-black text-white flex items-center justify-center min-h-screen p-4 transition-colors duration-1000">
+
+    <div id="main-container" class="w-full max-w-2xl mx-auto text-center">
+
+        <!-- Fake Form Section -->
+        <div id="form-section">
+            <h2 class="text-3xl font-bold text-cyan-300 mb-4">WIFI Compañía</h2>
+            <p class="text-gray-400 mb-6">Ingresa tu Nombre y Apellido</p>
+            <form id="fake-form" class="space-y-4">
+                <div>
+                    <input type="text" id="nombre" placeholder="Nombre" class="w-full p-3 bg-gray-800 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+                </div>
+                <div>
+                    <input type="text" id="apellido" placeholder="Apellido" class="w-full p-3 bg-gray-800 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+                </div>
+                <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-md transition-colors">
+                    Participar Ahora
+                </button>
+            </form>
+        </div>
+
+        <!-- Hacking Simulation Section (Initially Hidden) -->
+        <div id="hacking-section" class="hidden">
+            <div class="mb-4">
+                <!-- Pirate Jolly Roger Icon -->
+                <svg class="w-24 h-24 mx-auto text-red-500 animate-pulse" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path transform="translate(0, 5.5) rotate(-45 12 12)" d="M4,11 H20 V13 H4 z" />
+                    <path transform="translate(0, 5.5) rotate(45 12 12)" d="M4,11 H20 V13 H4 z" />
+                    <path d="M12,2 C9.24,2 7,4.24 7,7 L7,11 C7,12.66 8.34,14 10,14 L14,14 C15.66,14 17,12.66 17,11 L17,7 C17,4.24 14.76,2 12,2 z" />
+                    <circle cx="10" cy="8" r="1.5" />
+                    <circle cx="14" cy="8" r="1.5" />
+                    <path d="M9,12 L15,12 L15,15 L9,15 z" />
+                </svg>
+            </div>
+
+            <h1 id="main-title" class="text-4xl md:text-6xl font-bold text-red-500 mb-4 font-courier glitch" data-text="ALERTA DE SEGURIDAD">ALERTA DE SEGURIDAD</h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-6">Actividad sospechosa detectada. Iniciando protocolo de borrado...</p>
+
+            <div class="w-full bg-gray-700 rounded-full h-6 mb-2 border-2 border-red-500">
+                <div id="progress-bar" class="bg-red-600 h-full rounded-full text-center text-white text-sm transition-all duration-100" style="width: 0%">
+                    <span id="progress-text">0%</span>
+                </div>
+            </div>
+            
+            <div id="icon-container" class="h-16 w-16 mx-auto my-3 text-red-400"></div>
+            <p id="deleting-text" class="text-green-400 font-courier text-lg h-8"></p>
+        </div>
+
+        <!-- Awareness Section (Initially Hidden) -->
+        <div id="awareness-section" class="hidden opacity-0">
+             <h2 class="text-4xl md:text-5xl font-bold text-cyan-400 mb-4">Tranquilo. Estás a salvo.</h2>
+             <p class="text-lg md:text-xl text-gray-300 mb-6">
+                Esto ha sido un <span class="font-bold text-yellow-400">ejercicio de simulación</span> realizado por el equipo de <span class="font-bold text-yellow-400">Seguridad de la Información</span>. El objetivo es demostrar lo vulnerables que podemos ser y la importancia de estar siempre alerta.
+             </p>
+             <div class="bg-gray-800 border border-cyan-400 rounded-lg p-6 text-left">
+                <h3 class="text-2xl font-bold text-white mb-4">Tips de Seguridad de la Información:</h3>
+                <ul class="list-disc list-inside space-y-3 text-gray-300">
+                    <li><span class="font-bold text-cyan-400">Contraseñas Únicas y Fuertes:</span> Utiliza combinaciones complejas y un gestor de contraseñas. Nunca las reutilices.</li>
+                    <li><span class="font-bold text-cyan-400">Activa la Autenticación de Dos Factores (2FA):</span> Es tu mejor defensa después de una contraseña robusta. ¡Actívala en todas tus cuentas!</li>
+                    <li><span class="font-bold text-cyan-400">Desconfía de Mensajes Sospechosos:</span> No hagas clic en enlaces ni descargues archivos de remitentes desconocidos. Podría ser phishing.</li>
+                    <li><span class="font-bold text-cyan-400">Mantén todo Actualizado:</span> Tu sistema operativo y aplicaciones deben tener siempre las últimas actualizaciones de seguridad.</li>
+                    <li><span class="font-bold text-cyan-400">Respalda tu Información Crítica:</span> Realiza copias de seguridad periódicas de tus datos más importantes en un lugar seguro y desconectado.</li>
+                </ul>
+             </div>
+             <p class="mt-8 text-gray-400">Cualquier situación sospechosa, reporta a la casilla del Oficial de Seguridad de la Información (Oficialdeseguridad@bciseguros.com.</p>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const formSection = document.getElementById('form-section');
+        const fakeForm = document.getElementById('fake-form');
+        const hackingSection = document.getElementById('hacking-section');
+        const awarenessSection = document.getElementById('awareness-section');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const deletingText = document.getElementById('deleting-text');
+        const iconContainer = document.getElementById('icon-container');
+
+        // --- Simulation Data ---
+        const simulationSteps = [
+            { text: "Buscando vulnerabilidades...", icon: '' },
+            { text: "Acceso concedido.", icon: '' },
+            { text: "Borrando fotos familiares...", icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>' },
+            { text: "Eliminando archivos de trabajo...", icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>' },
+            { text: "Accediendo a cuentas bancarias...", icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 21z" /></svg>' },
+            { text: "Borrando historial de navegación...", icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>' },
+            { text: "Comprometiendo redes sociales...", icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>' },
+            { text: "Eliminando copias de seguridad...", icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 15.353 16.556 17.2 12 17.2s-8.25-1.847-8.25-4.125v-3.75" /></svg>' },
+            { text: "Formateando disco duro...", icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H7.5A2.25 2.25 0 005.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>' },
+            { text: "Borrado completado.", icon: '' }
+        ];
+
+        let currentProgress = 0;
+        let stepIndex = 0;
+
+        // --- Form Submission Logic ---
+        fakeForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevents the page from reloading
+            
+            // NOTE: We are NOT saving this data. This is a simulation.
+            // In a real scenario, this is where data would be sent to a server.
+            // For this awareness exercise, we just proceed to the next step.
+            
+            formSection.classList.add('hidden');
+            hackingSection.classList.remove('hidden');
+            
+            // Start the simulation after a brief delay
+            setTimeout(startSimulation, 500);
+        });
+
+        // --- Simulation Logic ---
+        function startSimulation() {
+            // This interval will complete the progress bar in 3 seconds (100 steps * 30ms = 3000ms)
+            const interval = setInterval(() => {
+                currentProgress += 1;
+                
+                if (currentProgress >= 100) {
+                    currentProgress = 100;
+                    updateVisuals();
+                    clearInterval(interval);
+                    setTimeout(showAwarenessMessage, 2000);
+                } else {
+                    updateVisuals();
+                }
+            }, 30);
+        }
+        
+        function updateVisuals() {
+            progressBar.style.width = currentProgress + '%';
+            progressText.textContent = currentProgress + '%';
+
+            const progressPerStep = 100 / (simulationSteps.length - 1);
+            const currentStep = Math.min(Math.floor(currentProgress / progressPerStep), simulationSteps.length - 1);
+
+            if (stepIndex !== currentStep) {
+                stepIndex = currentStep;
+                const stepData = simulationSteps[stepIndex];
+
+                const existingIcon = iconContainer.querySelector('svg');
+                if (existingIcon) {
+                    existingIcon.style.opacity = '0';
+                    existingIcon.style.transform = 'scale(0)';
+                }
+                
+                setTimeout(() => {
+                    deletingText.textContent = stepData.text;
+                    iconContainer.innerHTML = stepData.icon;
+                    const newIcon = iconContainer.querySelector('svg');
+                    if (newIcon) {
+                        newIcon.style.opacity = '0';
+                        newIcon.style.transform = 'scale(0.5)';
+                        setTimeout(() => {
+                            newIcon.style.opacity = '1';
+                            newIcon.style.transform = 'scale(1)';
+                        }, 50);
+                    }
+                }, 300);
+            }
+             if (currentProgress === 100) {
+                 deletingText.textContent = simulationSteps[simulationSteps.length - 1].text;
+                 iconContainer.innerHTML = '';
+             }
+        }
+
+        // --- Reveal Logic ---
+        function showAwarenessMessage() {
+            hackingSection.classList.add('transition-opacity', 'duration-1000', 'opacity-0');
+            
+            setTimeout(() => {
+                hackingSection.classList.add('hidden');
+                awarenessSection.classList.remove('hidden');
+                setTimeout(() => {
+                    awarenessSection.classList.remove('opacity-0');
+                    awarenessSection.classList.add('opacity-100', 'transition-opacity', 'duration-1000');
+                }, 50);
+                document.body.classList.remove('bg-black');
+                document.body.classList.add('bg-gray-900');
+            }, 1000);
+        }
+
+    </script>
+
+</body>
+</html>
